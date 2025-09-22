@@ -12,8 +12,20 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from django.conf.global_settings import STATICFILES_DIRS
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# __file__=/home/itheima/Desktop/django_base/bookmanager/bookmanager/settings.py
+# print(os.path.abspath(__file__))
+# /home/itheima/Desktop/django_base/bookmanager/bookmanager/settings.py
+
+# print(os.path.dirname(os.path.abspath(__file__)))
+# /home/itheima/Desktop/django_base/bookmanager/bookmanager
+
+# BASE_DIR=/home/itheima/Desktop/django_base/bookmanager
+# dirname 获取文件的目录
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +35,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gs#0&#5kh)wii%!h-eory&4t%15rp+9@4uqgbjxv5-9*i!7f#9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# 调试模式
+# 在我们开发的时候需要看见更多的提示，所以需要开启debug模式，当我们程序应用
+# 上线后，就关闭debug模式
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
+
+# 允许以什么样的形式来访问我们的项目默认是127.0.0.1
+# 当DEBUG模式为False时，开启
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -53,10 +73,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bookmanager.urls'
 
+#模块配置相关
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+
+        #告知系统，我们的模板文件放在哪个文件中
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 告知系统我们的图片在哪个文件下
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static')
+]
